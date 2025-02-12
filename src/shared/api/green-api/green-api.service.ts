@@ -1,19 +1,18 @@
 import {
   GreenApiClient,
-  GreenApiMessageDto,
-  GreenApiCredsDto
 } from '@/shared/api/green-api/green-api-client';
 import { plainToInstance } from 'class-transformer';
 import { toast } from 'react-toastify';
 import { validate } from 'class-validator';
 import Bottleneck from 'bottleneck';
+import { GetChatHistoryDto, PostMessageDto } from '@/shared/api/green-api/dtos';
 
 export class GreenApiService {
   public static postMessage = async (
     client: GreenApiClient,
-    opts: GreenApiMessageDto
+    opts: PostMessageDto
   ) => {
-    const messageInstance = plainToInstance(GreenApiMessageDto, opts);
+    const messageInstance = plainToInstance(PostMessageDto, opts);
 
     const limiter = new Bottleneck.Group({
       maxConcurrent: 1,
@@ -32,9 +31,9 @@ export class GreenApiService {
 
   public static getChatHistory = async (
     client: GreenApiClient,
-    opts: GreenApiCredsDto
+    opts: GetChatHistoryDto
   ) => {
-    const credsInstance = plainToInstance(GreenApiCredsDto, opts);
+    const credsInstance = plainToInstance(GetChatHistoryDto, opts);
 
     const limiter = new Bottleneck.Group({
       maxConcurrent: 1,

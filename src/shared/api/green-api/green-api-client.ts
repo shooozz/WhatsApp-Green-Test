@@ -1,11 +1,12 @@
 import axios from 'axios';
 import {
-  GreenApiChatHistoryResDto,
-  GreenApiCredsDto,
-  GreenApiMessageDto
-} from './dtos';
+  ChatHistoryResDto,
+  GetChatHistoryDto,
+  MessageResDto,
+  PostMessageDto
+} from '@/shared/api/green-api/dtos';
 
-// TODO: Валидация входящих/исходящих данных (можно через class-validator & class-transformer), плюс rate-limiter. По-сути ты тут api-клиент сделать должен, точнее,ты уже сделал, и так же нужен сервис для работы с этим апи-клиентом в котором и будет происходить валидация и ограничение количества запросов.
+//TODO: Green API URL надо в .env вынести.
 
 export class GreenApiClient {
   public postMessage = async ({
@@ -13,10 +14,9 @@ export class GreenApiClient {
     apiTokenInstance,
     phoneNumber,
     message
-  }: GreenApiMessageDto) => {
-    // Green API URL надо в .env вынести.
+  }: PostMessageDto) => {
     const apiUrl = `https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`;
-    return axios.post<{ idMessage: string }>(apiUrl, {
+    return axios.post<MessageResDto>(apiUrl, {
       chatId: `${phoneNumber}@c.us`,
       message
     });
@@ -26,10 +26,9 @@ export class GreenApiClient {
     idInstance,
     apiTokenInstance,
     phoneNumber
-  }: GreenApiCredsDto) => {
-    // Green API URL надо в .env вынести.
+  }: GetChatHistoryDto) => {
     const apiUrl = `https://api.green-api.com/waInstance${idInstance}/getChatHistory/${apiTokenInstance}`;
-    return axios.post<GreenApiChatHistoryResDto>(apiUrl, {
+    return axios.post<ChatHistoryResDto>(apiUrl, {
       chatId: `${phoneNumber}@c.us`
     });
   };

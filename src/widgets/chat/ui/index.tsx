@@ -2,15 +2,15 @@ import React from 'react';
 import { Button, Card, CardContent, Input } from '@mui/material';
 import { useGetChatHistory, usePostMessage } from '@/entities/message/hooks';
 import { ChatHistory } from '@/shared/ui/ChatHistory';
-import { GreenApiChatHistoryResDto } from '@/shared/api/green-api/green-api-client';
+import { ChatHistoryResDto } from '@/shared/api/green-api';
 
 export const ChatWidget = () => {
-  //TODO: Тут лучше использовать Formik или react-hook-form, так формы не делаются, как ты сделал. Тогда и ненужный локальный стейт уйдет.
+  //TODO: Тут лучше использовать Formik или react-hook-form, так формы не делаются, как ты сделал. Тогда и ненужный локальный стейт уйдет, и компонент будет намного лучше выглядеть, плюс появится валидация данных формы.
 
   const [idInstance, setIdInstance] = React.useState('');
   const [apiTokenInstance, setApiTokenInstance] = React.useState('');
   const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [chatHistory, setChatHistory] = React.useState<GreenApiChatHistoryResDto[]>([]);
+  const [chatHistory, setChatHistory] = React.useState<ChatHistoryResDto[]>([]);
   const [message, setMessage] = React.useState('');
 
   const MemoizedChatHistory = React.useMemo(

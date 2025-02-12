@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card, CardContent } from '@mui/material';
-import { Message } from '@/entities/message/model';
+import { ChatHistoryResDto } from '@/shared/api/green-api';
+
+//TODO: Я бы без виртуализации списка сообщений в прод не пустил бы, надо сделать.
 
 type Props = {
-  chatHistory: Message[];
+  chatHistory: ChatHistoryResDto[];
 };
 
 export const ChatHistory = ({ chatHistory }: Props) => {

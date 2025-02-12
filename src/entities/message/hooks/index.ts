@@ -2,6 +2,8 @@ import { GreenApiService } from '@/shared/api/green-api';
 import { GreenApiClient } from '@/shared/api/green-api/green-api-client';
 import { toast } from 'react-toastify';
 
+//TODO: Тут нужна типизация аргументов функции хука
+
 export const useGetChatHistory = (
   idInstance: string,
   apiTokenInstance: string,
