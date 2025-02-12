@@ -9,8 +9,6 @@ export const useFetchMessages = (idInstance: string, apiTokenInstance: string, p
 
         try {
             const response = await fetchMessagesRequest(idInstance, apiTokenInstance, phoneNumber)
-            console.log('Fetched messages:', response.data)
-
             setChatHistory(response.data)
         } catch (error) {
             console.error('Error fetching messages:', error)

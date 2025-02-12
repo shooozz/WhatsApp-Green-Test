@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { sendMessageRequest } from '@/shared/api/greenApi'
 import { useFetchMessages } from '../fetchMessages'
 
@@ -18,10 +17,6 @@ export const useSendMessage = (
 
         try {
             await sendMessageRequest(idInstance, apiTokenInstance, phoneNumber, message)
-            // setChatHistory((prev: any) => [
-            //     ...prev,
-            //     { sender: "You", text: message },
-            // ]);
             setMessage('')
             useFetchMessages(idInstance, apiTokenInstance, phoneNumber, setChatHistory)
         } catch (error) {
@@ -30,5 +25,5 @@ export const useSendMessage = (
         }
     }
 
-    return { message, setMessage, sendMessage }
+    return { sendMessage }
 }
