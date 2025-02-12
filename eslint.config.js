@@ -16,7 +16,15 @@ export default [
         },
         rules: {
             'no-unused-vars': 'warn',
-            'react/react-in-jsx-scope': 'off'
+            'react/react-in-jsx-scope': 'off',
+            'no-console': 'warn',
+            'prefer-const': 'off',
+            'quotes': ['warn', 'single'],
+            'jsx-quotes': ['warn', 'prefer-single'],
+            'indent': ['warn', 4],
+            'max-len': ['error', { code: 160 }],
+            'comma-dangle': ['off'],
+            'semi': ['off']
         }
     }
 ]
