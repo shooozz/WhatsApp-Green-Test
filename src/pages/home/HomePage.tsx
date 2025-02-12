@@ -1,7 +1,7 @@
-import { ChatWidget } from "@/widgets/chat/ChatWidget";
+import { ChatWidget } from '@/widgets/chat/ChatWidget'
 
 const HomePage = () => {
-    return <ChatWidget />;
-};
+    return <ChatWidget />
+}
 
-export default HomePage;
+export default HomePage
