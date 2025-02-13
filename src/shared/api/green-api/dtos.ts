@@ -1,6 +1,4 @@
 export class GetChatHistoryDto {
-  idInstance!: string;
-  apiTokenInstance!: string;
   phoneNumber!: string;
 }
 export class ChatHistoryResDto {
@@ -11,11 +9,33 @@ export class ChatHistoryResDto {
 }
 
 export class PostMessageDto {
-  idInstance!: string;
-  apiTokenInstance!: string;
   phoneNumber!: string;
   message!: string;
 }
 export class MessageResDto {
   idMessage!: string;
+}
+
+export class GetNotificationResDto {
+  'typeWebhook': string;
+  'instanceData': {
+    idInstance: number;
+    wid: string;
+    typeInstance: string;
+  };
+  'timestamp': number;
+  'idMessage': string;
+  'senderData': {
+    chatId: string;
+    sender: string;
+    chatName: string;
+    senderName: string;
+    senderContactName: string;
+  };
+  'messageData': {
+    typeMessage: string;
+    textMessageData: {
+      textMessage: string;
+    };
+  };
 }

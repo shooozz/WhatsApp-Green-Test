@@ -1,76 +1,23 @@
 import React from 'react';
-import { Button, Card, CardContent, Input } from '@mui/material';
-import { useGetChatHistory, usePostMessage } from '@/entities/message/hooks';
-import { ChatHistory } from '@/shared/ui/ChatHistory';
-import { ChatHistoryResDto } from '@/shared/api/green-api';
+import { useChat } from '@/widgets/chat/hooks';
 
 export const ChatWidget = () => {
-  //TODO: Тут лучше использовать Formik или react-hook-form, так формы не делаются, как ты сделал. Тогда и ненужный локальный стейт уйдет, и компонент будет намного лучше выглядеть, плюс появится валидация данных формы.
-
-  const [idInstance, setIdInstance] = React.useState('');
-  const [apiTokenInstance, setApiTokenInstance] = React.useState('');
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [chatHistory, setChatHistory] = React.useState<ChatHistoryResDto[]>([]);
-  const [message, setMessage] = React.useState('');
-
-  const MemoizedChatHistory = React.useMemo(
-    () => <ChatHistory chatHistory={chatHistory} />,
-    [chatHistory]
-  );
-
-  const { sendMessage } = usePostMessage(
-    idInstance,
-    apiTokenInstance,
-    phoneNumber,
-    message,
-    setMessage,
-    setChatHistory
-  );
-  const { fetchMessages } = useGetChatHistory(
-    idInstance,
-    apiTokenInstance,
-    phoneNumber,
-    setChatHistory
-  );
+  const { inputs, ChatHistory, onSubmit, register, errors } = useChat();
 
   return (
-    <div className='p-4'>
-      <Card className='mb-4'>
-        <CardContent>
-          <div className='grid gap-4'>
-            <Input
-              placeholder='idInstance'
-              value={idInstance}
-              onChange={e => setIdInstance(e.target.value)}
-            />
-            <Input
-              placeholder='apiTokenInstance'
-              value={apiTokenInstance}
-              onChange={e => setApiTokenInstance(e.target.value)}
-            />
-            <Input
-              placeholder='Recipient Phone Number'
-              value={phoneNumber}
-              onChange={e => setPhoneNumber(e.target.value)}
-            />
+    <>
+      <form onSubmit={onSubmit}>
+        {inputs.map((input) => (
+          <div key={input.name}>
+            <label htmlFor={input.name}>{input.label}</label>
+            <input id={input.name} {...register(input.name)} />
+            <p role='alert'>{errors[input.name]?.message}</p>
           </div>
-        </CardContent>
-      </Card>
+        ))}
+        <input type='submit' />
+      </form>
 
-      <div className='flex gap-2'>
-        <Input
-          className='flex-grow'
-          placeholder='Type your message'
-          value={message}
-          onChange={e => setMessage(e.target.value)}
-        />
-        <Button onClick={sendMessage}>Send</Button>
-        <Button variant='outlined' onClick={fetchMessages}>
-          Refresh
-        </Button>
-      </div>
-
-      {MemoizedChatHistory}
-    </div>
+      {ChatHistory}
+    </>
   );
 };

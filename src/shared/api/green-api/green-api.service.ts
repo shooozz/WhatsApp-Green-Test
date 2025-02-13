@@ -22,7 +22,7 @@ export class GreenApiService {
     try {
       await validate(messageInstance);
       return await limiter
-        .key(messageInstance.apiTokenInstance)
+        .key(client.idInstance)
         .schedule(async () => await client.postMessage(messageInstance));
     } catch (err: any) {
       this.handleError(err);
@@ -43,7 +43,7 @@ export class GreenApiService {
     try {
       await validate(credsInstance);
       return await limiter
-        .key(credsInstance.apiTokenInstance)
+        .key(client.idInstance)
         .schedule(async () => await client.getChatHistory(credsInstance));
     } catch (err: any) {
       this.handleError(err);
