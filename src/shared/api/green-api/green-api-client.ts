@@ -6,10 +6,11 @@ import {
   MessageResDto,
   PostMessageDto
 } from '@/shared/api/green-api/dtos';
+import { envService } from '@/shared/lib/env';
 
 //TODO: Green API URL надо в .env вынести. А так же подумать над наличием состояния у этого клиента, можно ли сделать stateless клиент и нужно ли.
 // Можно передавать idInstance, apiTokenInstance вместе с phoneNumber, message как мне подсказал GPT. Но я хотел понять зачем это делается и не стал этого делать до полного осознования. Questions: Где можно прочитать или просмотреть про это?
-const BASE_URL = import.meta.env.VITE_GREEN_API_URL;
+const BASE_URL = envService.VITE_GREEN_API_URL;
 
 export class GreenApiClient {
   constructor(
