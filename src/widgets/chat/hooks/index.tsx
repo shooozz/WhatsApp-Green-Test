@@ -45,7 +45,7 @@ export const useChat = () => {
     // TODO: Сверься с документацией, какие успешные коды вообще могут прийти, нужно учесть все коды и все коды ошибок, но коды ошибок в сервисе GreenApiService, я там организовал работу с ошибками. Если хочешь -- вынеси из сервиса обработку ошибок, возможно так будет правильнее и сервис будет чище.
 
     if (postMessageRes?.status === 200) {
-      toast.done('Message sent');
+      toast.success('Message sent');
     } else {
       toast.error('Error when sending message');
     }

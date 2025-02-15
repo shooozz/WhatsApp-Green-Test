@@ -1,6 +1,5 @@
 import React from 'react';
 import { useChat } from '@/widgets/chat/hooks';
-import { toast } from 'react-toastify';
 
 export const ChatWidget = () => {
   const { inputs, ChatHistory, onSubmit, register, errors } = useChat();
@@ -17,7 +16,6 @@ export const ChatWidget = () => {
         ))}
         <input type='submit' />
       </form>
-      <button onClick={() => toast.done('HELLO')}>TOAST TEST</button>
 
       {ChatHistory}
     </>
