@@ -1,11 +1,9 @@
-import {
-  GreenApiClient,
-} from '@/shared/api/green-api/green-api-client';
+import { GreenApiClient } from '@/shared/api/green-api/green-api-client';
 import { plainToInstance } from 'class-transformer';
-import { toast } from 'react-toastify';
 import { validate } from 'class-validator';
 import Bottleneck from 'bottleneck';
 import { GetChatHistoryDto, PostMessageDto } from '@/shared/api/green-api/dtos';
+import { handleError } from '@/shared/lib/error-handler';
 
 export class GreenApiService {
   public static postMessage = async (
@@ -25,7 +23,7 @@ export class GreenApiService {
         .key(client.idInstance)
         .schedule(async () => await client.postMessage(messageInstance));
     } catch (err: any) {
-      this.handleError(err);
+      handleError(err);
     }
   };
 
@@ -46,12 +44,7 @@ export class GreenApiService {
         .key(client.idInstance)
         .schedule(async () => await client.getChatHistory(credsInstance));
     } catch (err: any) {
-      this.handleError(err);
+      handleError(err);
     }
   };
-
-  private static handleError(err: any) {
-    // Тут должна быть обработка ошибок, я пока просто тост вставил
-    toast.error(JSON.stringify(err.message));
-  }
 }

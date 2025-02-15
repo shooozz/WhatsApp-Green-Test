@@ -8,6 +8,8 @@ import {
 } from '@/shared/api/green-api/dtos';
 
 //TODO: Green API URL надо в .env вынести. А так же подумать над наличием состояния у этого клиента, можно ли сделать stateless клиент и нужно ли.
+// Можно передавать idInstance, apiTokenInstance вместе с phoneNumber, message как мне подсказал GPT. Но я хотел понять зачем это делается и не стал этого делать до полного осознования. Questions: Где можно прочитать или просмотреть про это?
+const BASE_URL = import.meta.env.VITE_GREEN_API_URL;
 
 export class GreenApiClient {
   constructor(
@@ -17,7 +19,7 @@ export class GreenApiClient {
 
   public postMessage = async ({ phoneNumber, message }: PostMessageDto) => {
     const url = new URL(
-      `https://api.green-api.com/waInstance${this.idInstance}/SendMessage/${this.apiTokenInstance}`
+      `${BASE_URL}/waInstance${this.idInstance}/SendMessage/${this.apiTokenInstance}`
     );
 
     return axios.post<MessageResDto>(url.toString(), {
@@ -28,7 +30,7 @@ export class GreenApiClient {
 
   public getChatHistory = async ({ phoneNumber }: GetChatHistoryDto) => {
     const url = new URL(
-      `https://api.green-api.com/waInstance${this.idInstance}/getChatHistory/${this.apiTokenInstance}`
+      `${BASE_URL}/waInstance${this.idInstance}/getChatHistory/${this.apiTokenInstance}`
     );
 
     return axios.post<Array<ChatHistoryResDto>>(url.toString(), {
@@ -38,7 +40,7 @@ export class GreenApiClient {
 
   public receiveNotification = async (timeout: number | string = 5) => {
     const url = new URL(
-      `https://api.green-api.com/waInstance${this.idInstance}/receiveNotification/${this.apiTokenInstance}`
+      `${BASE_URL}/waInstance${this.idInstance}/receiveNotification/${this.apiTokenInstance}`
     );
     url.searchParams.append('receiveTimeout', timeout.toString());
 
@@ -47,7 +49,7 @@ export class GreenApiClient {
 
   public deleteNotification = async (receiptId: number | string) => {
     const url = new URL(
-      `https://api.green-api.com/waInstance${this.idInstance}/deleteNotification/${this.apiTokenInstance}`
+      `${BASE_URL}/waInstance${this.idInstance}/deleteNotification/${this.apiTokenInstance}`
     );
     url.searchParams.append('receiptId', receiptId.toString());
 

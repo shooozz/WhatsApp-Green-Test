@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, IsOptional, ValidateNested, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  ValidateNested,
+  IsNumber,
+  IsBoolean
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 // =========== CHAT HISTORY DTO ===========
@@ -8,10 +15,54 @@ export class GetChatHistoryDto {
   phoneNumber: string;
 }
 
+// =========== EXTENDEDTEXTMESSAGE (if it has) DTO ===========
+export class ExtendedTextMessageDto {
+  @IsString()
+  @IsOptional()
+  text?: string;
+
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsString()
+  @IsOptional()
+  previewType?: string;
+
+  @IsString()
+  @IsOptional()
+  jpegThumbnail?: string;
+
+  @IsNumber()
+  @IsOptional()
+  forwardingScore?: number;
+
+  @IsBoolean()
+  @IsOptional()
+  isForwarded?: boolean;
+}
+
+// =========== GET NOTIFICATION RES DTO ===========
 export class ChatHistoryResDto {
   @IsString()
   @IsNotEmpty()
   type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  idMessage: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  timestamp: number;
+
+  @IsString()
+  @IsNotEmpty()
+  typeMessage: string;
 
   @IsString()
   @IsNotEmpty()
@@ -21,9 +72,48 @@ export class ChatHistoryResDto {
   @IsNotEmpty()
   textMessage: string;
 
+  // Данные отправителя, если сообщение входящее
   @IsString()
-  @IsNotEmpty()
-  senderName: string;
+  @IsOptional()
+  senderId?: string;
+
+  @IsString()
+  @IsOptional()
+  senderName?: string;
+
+  @IsString()
+  @IsOptional()
+  senderContactName?: string;
+
+  // Дополнительные данные, если сообщение расширенное (extendedTextMessage)
+  @ValidateNested()
+  @Type(() => ExtendedTextMessageDto)
+  @IsOptional()
+  extendedTextMessage?: ExtendedTextMessageDto;
+
+  @IsString()
+  @IsOptional()
+  statusMessage?: string;
+
+  @IsBoolean()
+  @IsOptional()
+  sendByApi?: boolean;
+
+  @IsString()
+  @IsOptional()
+  deletedMessageId?: string;
+
+  @IsString()
+  @IsOptional()
+  editedMessageId?: string;
+
+  @IsBoolean()
+  @IsOptional()
+  isEdited?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  isDeleted?: boolean;
 }
 
 // =========== POST MESSAGE DTO ===========
