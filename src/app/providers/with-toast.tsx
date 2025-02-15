@@ -13,7 +13,7 @@ export const withToast = (component: () => React.ReactNode) => () => (
       pauseOnFocusLoss
       draggable
       pauseOnHover
-      theme='dark'
+      theme='light'
       transition={Bounce}
     />
     {component()}

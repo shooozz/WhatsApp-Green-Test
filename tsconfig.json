@@ -11,6 +11,8 @@
     "skipLibCheck": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",

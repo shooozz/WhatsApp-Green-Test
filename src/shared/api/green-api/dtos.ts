@@ -1,41 +1,121 @@
+import { IsString, IsNotEmpty, IsOptional, ValidateNested, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
+
+// =========== CHAT HISTORY DTO ===========
 export class GetChatHistoryDto {
-  phoneNumber!: string;
+  @IsString()
+  @IsNotEmpty()
+  phoneNumber: string;
 }
+
 export class ChatHistoryResDto {
-  type!: string;
-  chatId!: string;
-  textMessage!: string;
-  senderName!: string;
+  @IsString()
+  @IsNotEmpty()
+  type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  chatId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  textMessage: string;
+
+  @IsString()
+  @IsNotEmpty()
+  senderName: string;
 }
 
+// =========== POST MESSAGE DTO ===========
 export class PostMessageDto {
-  phoneNumber!: string;
-  message!: string;
-}
-export class MessageResDto {
-  idMessage!: string;
+  @IsString()
+  @IsNotEmpty()
+  phoneNumber: string;
+
+  @IsString()
+  @IsNotEmpty()
+  message: string;
 }
 
+export class MessageResDto {
+  @IsString()
+  @IsNotEmpty()
+  idMessage: string;
+}
+
+// =========== GET NOTIFICATION RES DTO ===========
 export class GetNotificationResDto {
-  'typeWebhook': string;
-  'instanceData': {
-    idInstance: number;
-    wid: string;
-    typeInstance: string;
-  };
-  'timestamp': number;
-  'idMessage': string;
-  'senderData': {
-    chatId: string;
-    sender: string;
-    chatName: string;
-    senderName: string;
-    senderContactName: string;
-  };
-  'messageData': {
-    typeMessage: string;
-    textMessageData: {
-      textMessage: string;
-    };
-  };
+  @IsString()
+  @IsNotEmpty()
+  typeWebhook: string;
+
+  @ValidateNested()
+  @Type(() => InstanceData)
+  instanceData: InstanceData;
+
+  @IsNumber()
+  timestamp: number;
+
+  @IsString()
+  @IsNotEmpty()
+  idMessage: string;
+
+  @ValidateNested()
+  @Type(() => SenderData)
+  senderData: SenderData;
+
+  @ValidateNested()
+  @Type(() => MessageData)
+  messageData: MessageData;
+}
+
+class InstanceData {
+  @IsNumber()
+  idInstance: number;
+
+  @IsString()
+  @IsNotEmpty()
+  wid: string;
+
+  @IsString()
+  @IsNotEmpty()
+  typeInstance: string;
+}
+
+class SenderData {
+  @IsString()
+  @IsOptional()
+  chatId: string;
+
+  @IsString()
+  @IsOptional()
+  sender: string;
+
+  @IsString()
+  @IsOptional()
+  chatName: string;
+
+  @IsString()
+  @IsOptional()
+  senderName: string;
+
+  @IsString()
+  @IsOptional()
+  senderContactName: string;
+}
+
+class MessageData {
+  @IsString()
+  @IsNotEmpty()
+  typeMessage: string;
+
+  @ValidateNested()
+  @Type(() => TextMessageData)
+  textMessageData: TextMessageData;
+}
+
+class TextMessageData {
+  @IsString()
+  @IsNotEmpty()
+  textMessage: string;
 }

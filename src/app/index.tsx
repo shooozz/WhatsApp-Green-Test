@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/app/styles/App.css';
 import '@/app/styles/index.css';
+import 'reflect-metadata';
 import { MainPage } from '@/pages/main';
 import { withProviders } from '@/app/providers';
 
