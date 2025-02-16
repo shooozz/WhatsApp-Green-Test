@@ -31,7 +31,7 @@ export class GreenApiService {
     client: GreenApiClient,
     opts: GetChatHistoryDto
   ) => {
-    const credsInstance = plainToInstance(GetChatHistoryDto, opts);
+    const chatHistInstance = plainToInstance(GetChatHistoryDto, opts);
 
     const limiter = new Bottleneck.Group({
       maxConcurrent: 1,
@@ -39,10 +39,10 @@ export class GreenApiService {
     });
 
     try {
-      await validate(credsInstance);
+      await validate(chatHistInstance);
       return await limiter
         .key(client.idInstance)
-        .schedule(async () => await client.getChatHistory(credsInstance));
+        .schedule(async () => await client.getChatHistory(chatHistInstance));
     } catch (err: any) {
       handleError(err);
     }
