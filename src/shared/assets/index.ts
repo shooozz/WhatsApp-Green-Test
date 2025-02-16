@@ -1,1 +1,0 @@
-export * as ReactIcon from './react.svg';

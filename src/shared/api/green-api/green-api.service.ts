@@ -1,6 +1,4 @@
-import {
-  GreenApiClient,
-} from '@/shared/api/green-api/green-api-client';
+import { GreenApiClient } from '@/shared/api/green-api/green-api-client';
 import { plainToInstance } from 'class-transformer';
 import { toast } from 'react-toastify';
 import { validate } from 'class-validator';

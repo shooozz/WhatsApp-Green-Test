@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   ChatHistoryResDto,
+  DeleteNotificationResDto,
   GetChatHistoryDto,
   GetNotificationResDto,
   MessageResDto,
@@ -51,6 +52,6 @@ export class GreenApiClient {
     );
     url.searchParams.append('receiptId', receiptId.toString());
 
-    return axios.post<{ result: boolean }>(url.toString());
+    return axios.post<DeleteNotificationResDto>(url.toString());
   };
 }

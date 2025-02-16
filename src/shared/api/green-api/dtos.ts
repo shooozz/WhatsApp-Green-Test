@@ -1,7 +1,14 @@
-import { IsString, IsNotEmpty, IsOptional, ValidateNested, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  ValidateNested,
+  IsNumber,
+  IsBoolean
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
-// =========== CHAT HISTORY DTO ===========
+// <>---------[ CHAT HISTORY DTO ]---------<>
 export class GetChatHistoryDto {
   @IsString()
   @IsNotEmpty()
@@ -26,7 +33,7 @@ export class ChatHistoryResDto {
   senderName: string;
 }
 
-// =========== POST MESSAGE DTO ===========
+// <>---------[ POST MESSAGE DTO ]---------<>
 export class PostMessageDto {
   @IsString()
   @IsNotEmpty()
@@ -43,7 +50,7 @@ export class MessageResDto {
   idMessage: string;
 }
 
-// =========== GET NOTIFICATION RES DTO ===========
+// <>---------[ GET NOTIFICATION RES DTO ]---------<>
 export class GetNotificationResDto {
   @IsString()
   @IsNotEmpty()
@@ -118,4 +125,11 @@ class TextMessageData {
   @IsString()
   @IsNotEmpty()
   textMessage: string;
+}
+
+// <>---------[ DELETE NOTIFICATION DTO ]---------<>
+export class DeleteNotificationResDto {
+  @IsBoolean()
+  @IsNotEmpty()
+  result: boolean;
 }

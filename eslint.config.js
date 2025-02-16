@@ -6,7 +6,7 @@ import ts from '@typescript-eslint/eslint-plugin';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import sortImports from 'eslint-plugin-simple-import-sort';
-import unusedImports from "eslint-plugin-unused-imports";
+import unusedImports from 'eslint-plugin-unused-imports';
 
 export default [
   js.configs.recommended,
@@ -30,23 +30,23 @@ export default [
       'unicorn': eslintPluginUnicorn,
       'sortImports': sortImports,
       '@typescript-eslint': ts,
-      "unused-imports": unusedImports,
+      'unused-imports': unusedImports
     },
     rules: {
       'react/react-in-jsx-scope': 'warn',
       'no-console': 'warn',
       'prefer-const': 'warn',
       'unicorn/better-regex': 'error',
-      "no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "error",
-      "unused-imports/no-unused-vars": [
-        "warn",
+      'no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
         {
-          "vars": "all",
-          "varsIgnorePattern": "^_",
-          "args": "after-used",
-          "argsIgnorePattern": "^_",
-        },
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_'
+        }
       ]
     },
     files: ['**/*.ts', '**/*.tsx']
